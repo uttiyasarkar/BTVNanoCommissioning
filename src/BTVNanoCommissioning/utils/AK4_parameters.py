@@ -69,7 +69,7 @@ correction_config = {
             "ele_Reco_high 2022FG 2022FG-Electron-ID-SF": "RecoAbove75",
         },
         "JPCalib": {
-            "Run2022E": "calibeHistoWrite_Data2022F_NANO130X_v1.root",  # to be updated
+            "Run2022E": "calibeHistoWrite_Data2022F_NANO130X_v1.root",
             "Run2022F": "calibeHistoWrite_Data2022F_NANO130X_v1.root",
             "Run2022G": "calibeHistoWrite_Data2022G_NANO130X_v1.root",
             "MC": "calibeHistoWrite_MC2022EE_NANO130X_v1.root",
