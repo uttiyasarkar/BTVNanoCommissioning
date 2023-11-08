@@ -49,9 +49,9 @@ correction_config = {
             "mu_Iso": "NUM_TightPFIso_DEN_TightID",
         },
         "JPCalib": {
-            "Run2022C": "calibeHistoWrite_Data2022C_NANO130X_v1.root",
-            "Run2022D": "calibeHistoWrite_Data2022D_NANO130X_v1.root",
-            "MC": "calibeHistoWrite_MC2022_NANO130X_v2.root",
+            "Run2022C": "calibeHistoWrite_Data2022F_NANO130X_v1.root",  # to be updated
+            "Run2022D": "calibeHistoWrite_Data2022F_NANO130X_v1.root",  # to be updated
+            "MC": "calibeHistoWrite_MC2022EE_NANO130X_v1.root",  # to be updated
         },
     },
     "Summer22EERun3": {
@@ -69,7 +69,7 @@ correction_config = {
             "ele_Reco_high 2022FG 2022FG-Electron-ID-SF": "RecoAbove75",
         },
         "JPCalib": {
-            "Run2022E": "calibeHistoWrite_Data2022F_NANO130X_v1.root",
+            "Run2022E": "calibeHistoWrite_Data2022F_NANO130X_v1.root",  # to be updated
             "Run2022F": "calibeHistoWrite_Data2022F_NANO130X_v1.root",
             "Run2022G": "calibeHistoWrite_Data2022G_NANO130X_v1.root",
             "MC": "calibeHistoWrite_MC2022EE_NANO130X_v1.root",

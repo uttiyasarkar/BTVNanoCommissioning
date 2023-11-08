@@ -1,4 +1,4 @@
-name: ctag DY+jets Workflow
+name: ttbar semileptonic Workflows
 
 on:
   push:
@@ -28,12 +28,13 @@ jobs:
         mkdir  $HOME/.ssh
         echo "$SSHKEY" > $HOME/.ssh/id_rsa
         chmod 600  $HOME/.ssh/id_rsa
-        echo "HOST *" > ~/.ssh/config        
+        echo "HOST *" > ~/.ssh/config
         echo "StrictHostKeyChecking no" >> ~/.ssh/config
         git submodule update --init --recursive 
     - uses: cvmfs-contrib/github-action-cvmfs@v2
       with:
         cvmfs_repositories: 'grid.cern.ch'
+
     - name: Set conda environment
       uses: conda-incubator/setup-miniconda@v2
       with:
@@ -83,13 +84,16 @@ jobs:
     - name: Install Repo
       run: |
         pip install -e .
-    
 
-    - name: ctag muon DY workflows with correctionlib
+    - name:  btag semileptonic ttbar workflows with correctionlib
       run: |
-        python runner.py --workflow ctag_DY_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray  --year 2022 --overwrite
+        python runner.py --workflow ttsemilep_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray  --overwrite
     
-
-    - name: ctag electron DY workflows with correctionlib
+    - name: ctag semileptonic muon ttbar workflows with correctionlib
       run: |
-        python runner.py --workflow ectag_DY_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray --year 2022 --overwrite
+        python runner.py --workflow ctag_ttsemilep_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray --overwrite 
+    
+    - name: ctag semileptonic electron ttbar workflows with correctionlib
+      run: |
+        python runner.py --workflow ectag_ttsemilep_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray  --overwrite
+

@@ -32,7 +32,7 @@ fi
 
 # Get arguments
 declare -A ARGS
-for key in workflow output samplejson year campaign isSyst isArray noHist overwrite voms chunk skipbadfiles outputXrootdDir remoteRepo; do
+for key in workflow output samplejson year campaign isCorr isSyst isJERC isArray noHist overwrite voms chunk retries outputXrootdDir remoteRepo; do
     ARGS[$key]=$(jq -r ".$key" $WORKDIR/arguments.json)
 done
 
@@ -58,11 +58,11 @@ pip install psutil
 python -c "import json; json.dump(json.load(open('$WORKDIR/split_samples.json'))['$JOBID'], open('sample.json', 'w'), indent=4)"
 
 # Unparse arguments and send to runner.py
-OPTS="--wf ${ARGS[workflow]} --year ${ARGS[year]} --campaign ${ARGS[campaign]} --chunk ${ARGS[chunk]}"
+OPTS="--wf ${ARGS[workflow]} --year ${ARGS[year]} --campaign ${ARGS[campaign]} --chunk ${ARGS[chunk]} --retries ${ARGS[retries]}"
 if [ "${ARGS[voms]}" != "null" ]; then
     OPTS="$OPTS --voms ${ARGS[voms]}"
 fi
-for key in  isSyst isArray noHist overwrite skipbadfiles; do
+for key in isCorr isSyst isJERC isArray noHist overwrite; do
     if [ "${ARGS[$key]}" == true ]; then
         OPTS="$OPTS --$key"
     fi
@@ -79,15 +79,11 @@ python runner.py $OPTS
 # Transfer output
 if [[ ${ARGS[outputXrootdDir]} == root://* ]]; then
     xrdcp --silent -p -f *.coffea ${ARGS[outputXrootdDir]}/
-    if [[ "$OPTS" == *"isArray"* ]]; then
-	xrdcp --silent -p -f "`ls -tr | tail -n2`" ${ARGS[outputXrootdDir]}/
-    fi
+    xrdcp --silent -p -f *.root ${ARGS[outputXrootdDir]}/
 else
     mkdir -p ${ARGS[outputXrootdDir]}
     cp -p -f *.coffea ${ARGS[outputXrootdDir]}/
-    if [[ "$OPTS" == *"isArray"* ]]; then
-	cp -p -f "`ls -tr | tail -n2`" ${ARGS[outputXrootdDir]}/
-    fi
+    cp -p -f *.root ${ARGS[outputXrootdDir]}/
 fi
 
 ### one can also consider origanizing the root files in the subdirectory structure ###

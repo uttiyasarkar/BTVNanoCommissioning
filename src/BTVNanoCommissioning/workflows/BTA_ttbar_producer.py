@@ -10,7 +10,6 @@ from BTVNanoCommissioning.helpers.BTA_helper import (
 )
 from BTVNanoCommissioning.helpers.func import update
 from BTVNanoCommissioning.utils.correction import load_SF, JME_shifts
-import os
 
 
 ## Based on coffea_array_producer.ipynb from Congqiao
@@ -73,8 +72,6 @@ class NanoProcessor(processor.ProcessorABC):
             "Evt": events.event,
             "LumiBlock": events.luminosityBlock,
             "rho": events.fixedGridRhoFastjetAll,
-            "npvs": events.PV.npvs,
-            "npvsGood": events.PV.npvsGood,
         }
         if not isRealData:
             basic_vars["nPU"] = events.Pileup.nPU
@@ -386,7 +383,7 @@ class NanoProcessor(processor.ProcessorABC):
         Jet = ak.zip(
             {
                 # basic kinematics
-                "pt": jet.pt,
+                "pT": jet.pt,
                 "eta": jet.eta,
                 "phi": jet.phi,
                 "mass": jet.mass,
@@ -427,14 +424,9 @@ class NanoProcessor(processor.ProcessorABC):
 
             # genJet pT
             genJetIdx = ak.where(
-                (jet.genJetIdx < ak.num(events.GenJet)) & (jet.genJetIdx != -1),
-                jet.genJetIdx,
-                zeros,
+                jet.genJetIdx < ak.num(events.GenJet), jet.genJetIdx, zeros
             )  # in case the genJet index out of range
-
-            Jet["genpt"] = ak.where(
-                jet.genJetIdx != -1, events.GenJet[genJetIdx].pt, -99
-            )
+            Jet["genpt"] = ak.where(genJetIdx != -1, events.GenJet[genJetIdx].pt, -99)
 
             # gen-level jet cleaning aginst prompt leptons
             genlep_prompt = genlep[(Genlep.mother != 0) & (Genlep.mother % 10 == 0)]
@@ -456,7 +448,7 @@ class NanoProcessor(processor.ProcessorABC):
 
             # jet cleaning aginst pileup
             Jet["flavourCleaned"] = ak.where(
-                (Jet["genpt"] < 8.0) & (Jet["genpt"] > 0), zeros, Jet["flavourCleaned"]
+                Jet["genpt"] < 8.0, zeros, Jet["flavourCleaned"]
             )
 
         # define Jet_clean: special for BTA ttbar workflow which cleans jets against selected leptons
@@ -519,8 +511,7 @@ class NanoProcessor(processor.ProcessorABC):
                 output["ttbar_ps_w"] = ps_w_arrays[passEvent]
 
         # customize output file name: <dataset>_<nanoAOD file name>_<chunk index>.root
-        fname = f"{dataset}/{events.metadata['filename'].split('/')[-1].replace('.root','')}_{int(events.metadata['entrystop']/self.chunksize)}.root"
-        os.system(f"mkdir -p {dataset}")
+        fname = f"{dataset}_{events.metadata['filename'].split('/')[-1].replace('.root','')}_{int(events.metadata['entrystop']/self.chunksize)}.root"
         with uproot.recreate(fname) as fout:
             output_root = {}
             for bname in output.keys():
@@ -532,21 +523,6 @@ class NanoProcessor(processor.ProcessorABC):
                         b_nest[n] = ak.packed(ak.without_parameters(output[bname][n]))
                     output_root[bname] = ak.zip(b_nest)
             fout["btagana/ttree"] = output_root
-            if isRealData:
-                fout["sumw"] = {"total_events": ak.Array([len(events)])}
-            else:
-                fout["sumw"] = {
-                    "total_events": ak.Array([len(events)]),
-                    "total_pos_events": ak.Array([ak.sum(events.genWeight > 0)]),
-                    "total_neg_events": ak.Array([-1.0 * ak.sum(events.genWeight < 0)]),
-                    "total_wei_events": ak.Array([ak.sum(events.genWeight)]),
-                    "total_poswei_events": ak.Array(
-                        [ak.sum(events.genWeight[events.genWeight > 0.0])]
-                    ),
-                    "total_negwei_events": ak.Array(
-                        [ak.sum(events.genWeight[events.genWeight < 0.0])]
-                    ),
-                }
 
         return {dataset: len(events)}
 

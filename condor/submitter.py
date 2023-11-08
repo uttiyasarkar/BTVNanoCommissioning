@@ -81,6 +81,7 @@ def get_main_parser():
         ],
         help="Dataset campaign, change the corresponding correction files",
     )
+    parser.add_argument("--isCorr", action="store_true", help="Run with SFs")
     parser.add_argument(
         "--isSyst",
         default=None,
@@ -88,20 +89,17 @@ def get_main_parser():
         choices=[None, "all", "weight_only", "JERC_split"],
         help="Run with systematics, all, weights_only(no JERC uncertainties included),JERC_split, None",
     )
+    parser.add_argument(
+        "--isJERC", action="store_true", help="JER/JEC implemented to jet"
+    )
     parser.add_argument("--isArray", action="store_true", help="Output root files")
-
     parser.add_argument(
         "--noHist", action="store_true", help="Not output coffea histogram"
     )
     parser.add_argument(
         "--overwrite", action="store_true", help="Overwrite existing files"
     )
-    parser.add_argument(
-        "--only",
-        type=str,
-        default=None,
-        help="Only  process/skip part of the dataset. By input list of file",
-    )
+
     parser.add_argument(
         "--voms",
         default=None,
@@ -116,7 +114,13 @@ def get_main_parser():
         metavar="N",
         help="Number of events per process chunk",
     )
-    parser.add_argument("--skipbadfiles", action="store_true", help="Skip bad files.")
+    parser.add_argument(
+        "--retries",
+        type=int,
+        default=25,
+        metavar="N",
+        help="Number of retries for coffea processor",
+    )
     parser = get_condor_submitter_parser(parser)
     return parser
 
@@ -178,20 +182,7 @@ if __name__ == "__main__":
         sample_dict = json.load(f)
     split_sample_dict = {}
     counter = 0
-    only = []
-    if args.only is not None:
-        if "*" in args.only:
-            only = [
-                k
-                for k in sample_dict.keys()
-                if k.lstrip("/").startswith(args.only.rstrip("*"))
-            ]
-        else:
-            only.append(args.only)
-
     for sample_name, files in sample_dict.items():
-        if len(only) != 0 and sample_name not in only:
-            continue
         for ifile in range(
             (len(files) + args.condorFileSize - 1) // args.condorFileSize
         ):

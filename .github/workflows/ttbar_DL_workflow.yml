@@ -1,4 +1,4 @@
-name: ctag DY+jets Workflow
+name: ttbar dileptonic Workflows
 
 on:
   push:
@@ -34,6 +34,7 @@ jobs:
     - uses: cvmfs-contrib/github-action-cvmfs@v2
       with:
         cvmfs_repositories: 'grid.cern.ch'
+
     - name: Set conda environment
       uses: conda-incubator/setup-miniconda@v2
       with:
@@ -83,13 +84,18 @@ jobs:
     - name: Install Repo
       run: |
         pip install -e .
-    
 
-    - name: ctag muon DY workflows with correctionlib
+    - name: btag dileptonic ttbar workflows with correctionlib
       run: |
-        python runner.py --workflow ctag_DY_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray  --year 2022 --overwrite
+        python runner.py --workflow ttdilep_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray --overwrite 
     
-
-    - name: ctag electron DY workflows with correctionlib
+    - name: ctag dileptonic muon ttbar workflows with correctionlib
       run: |
-        python runner.py --workflow ectag_DY_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray --year 2022 --overwrite
+        python runner.py --workflow ctag_ttdilep_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray  --overwrite
+    - name: ctag dileptonic electron ttbar workflows with correctionlib 
+      run: |
+        python runner.py --workflow ectag_ttdilep_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray  --overwrite 
+    - name: ctag dileptonic emu ttbar workflows with correctionlib
+      run: |
+        python runner.py --workflow emctag_ttdilep_sf --json metadata/test_bta_run3.json --limit 1 --executor iterative --campaign Summer22Run3  --isSyst all --isArray --overwrite  
+        
