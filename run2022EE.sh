@@ -1,0 +1,12 @@
+python runner.py --json metadata/data_Summer22EE_2022_em_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ttdilep_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/data_Summer22EE_2022_mu_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ttsemilep_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/data_Summer22EE_2022_em_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ctag_ttdilep_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/data_Summer22EE_2022_mu_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ctag_ttsemilep_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/data_Summer22EE_2022_em_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ctag_DY_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/data_Summer22EE_2022_mu_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ctag_Wc_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/MC_Summer22EE_2022_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ttdilep_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/MC_Summer22EE_2022_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ttsemilep_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/MC_Summer22EE_2022_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ctag_ttdilep_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/MC_Summer22EE_2022_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ctag_ttsemilep_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/MC_Summer22EE_2022_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ctag_DY_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
+python runner.py --json metadata/MC_Summer22EE_2022_BTV_Run3_2022_Comm_MINIAODv4_NanoV12.json --workflow ctag_Wc_sf --campaign Summer22EERun3 --year 2022 --executor parsl/condor --retries 50 -s 1000
