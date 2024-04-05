@@ -184,7 +184,7 @@ xsection = [
     },
     {
         "process_name": "WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8",
-        "cross_section": "54860",
+        "cross_section": "0",
         "DAS": "/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22NanoAODv11-126X_mcRun3_2022_realistic_v2-v2/NANOAODSIM",
         "energy": "13.6",
         "comment": "from TOP-22-012",
@@ -210,7 +210,7 @@ xsection = [
         "energy": "13.6",
         "comment": "running genxsanalyzer",
     },
-    {
+        {
         "process_name": "WtoLNu-4Jets_4J_TuneCP5_13p6TeV_madgraphMLM-pythia8",
         "cross_section": "416.5",
         "total_uncertainty": "1.28",
@@ -218,6 +218,35 @@ xsection = [
         "DAS": "/WtoLNu-4Jets_4J_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v2/MINIAODSIM",
         "equivalent_lumi": "2.401",
         "fraction_negative_weight": "0",
+    },
+      {
+        "process_name": "ZZ_TuneCP5_13p6TeV_pythia8",
+        "cross_section": "12.75",
+        "total_uncertainty": "0.0649",
+        "accuracy": "unknown",
+        "DAS": "/ZZ_TuneCP5_13p6TeV_pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v3/MINIAODSIM",
+        "equivalent_lumi": "78.42",
+        "fraction_negative_weight": "0.0"
+    },
+    {
+        "id": "6420507829461764a903c1ec",
+        "process_name": "WW_TuneCP5_13p6TeV_pythia8",
+        "cross_section": "80.23",
+        "total_uncertainty": "0.3733",
+        "accuracy": "unknown",
+        "DAS": "/WW_TuneCP5_13p6TeV_pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v3/MINIAODSIM",
+        "equivalent_lumi": "12.46",
+        "fraction_negative_weight": "0.0"
+    },
+    {
+        "id": "6420507a29461764a903c1ee",
+        "process_name": "WZ_TuneCP5_13p6TeV_pythia8",
+        "cross_section": "29.1",
+        "total_uncertainty": "0.1318",
+        "accuracy": "unknown",
+        "DAS": "/WZ_TuneCP5_13p6TeV_pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v3/MINIAODSIM",
+        "equivalent_lumi": "34.36",
+        "fraction_negative_weight": "0.0"
     },
     {
         "process_name": "WW_TuneCP5_13p6TeV-pythia8",
