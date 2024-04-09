@@ -603,6 +603,7 @@ for index, discr in enumerate(var_set):
         print(
             "creating:",
             f"plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.png",
+            f"root://eosuser.cern.ch//eos/user/u/usarkar/www/BTVCommissioning/plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.png",
         )
         ax.set_yscale("log")
         name = "log"
@@ -613,15 +614,20 @@ for index, discr in enumerate(var_set):
         )
         fig.savefig(
             f"plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.png"
+            f"root://eosuser.cern.ch//eos/user/u/usarkar/www/BTVCommissioning/plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.png",
         )
     else:
         print(
             "creating:",
             f"plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.png",
+            f"root://eosuser.cern.ch//eos/user/u/usarkar/www/BTVCommissioning/plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.png",
+
         )
         fig.savefig(
             f"plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.pdf"
         )
         fig.savefig(
             f"plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.png"
+            f"root://eosuser.cern.ch//eos/user/u/usarkar/www/BTVCommissioning/plot/BTV/{args.phase}_{args.ext}_{time}/unc_{discr}_inclusive{scale}_{name}.png",
+
         )
